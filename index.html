@@ -24,6 +24,7 @@
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6C9 4 5 5 4 5v13c1 0 5-1 8 1 3-2 7-1 8-1V5c-1 0-5-1-8 1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M12 6v13" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol>
   <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M5 20a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
 <div class="bar">
@@ -44,36 +45,59 @@
 <!-- ===== SAMPUL ===== -->
 <section data-layar="sampul" class="aktif" aria-label="Pembuka">
   <div class="adegan">
+
+    <!-- langit -->
     <div class="matahari" aria-hidden="true"></div>
     <div class="awan awan-1" aria-hidden="true"></div>
     <div class="awan awan-2" aria-hidden="true"></div>
     <div class="awan awan-3" aria-hidden="true"></div>
+    <div class="awan awan-4" aria-hidden="true"></div>
+    <svg class="burung burung-1" width="30" height="13" viewBox="0 0 30 13" aria-hidden="true"><path d="M1 7Q8 1 15 7Q22 1 29 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="burung burung-2" width="24" height="11" viewBox="0 0 24 11" aria-hidden="true"><path d="M1 6Q6.5 1 12 6Q17.5 1 23 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <svg class="burung burung-3" width="20" height="9" viewBox="0 0 20 9" aria-hidden="true"><path d="M1 5Q5.5 1 10 5Q14.5 1 19 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <svg class="burung burung-4" width="17" height="8" viewBox="0 0 17 8" aria-hidden="true"><path d="M1 4.5Q4.75 1 8.5 4.5Q12.25 1 16 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
 
-    <svg class="burung burung-1" width="28" height="12" viewBox="0 0 28 12" aria-hidden="true"><path d="M0 6Q7 0 14 6Q21 0 28 6" fill="none" stroke="#2C2820" stroke-width="1.6" stroke-linecap="round"/></svg>
-    <svg class="burung burung-2" width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5Q5.5 0 11 5Q16.5 0 22 5" fill="none" stroke="#2C2820" stroke-width="1.4" stroke-linecap="round"/></svg>
-    <svg class="burung burung-3" width="18" height="8" viewBox="0 0 18 8" aria-hidden="true"><path d="M0 4Q4.5 0 9 4Q13.5 0 18 4" fill="none" stroke="#2C2820" stroke-width="1.2" stroke-linecap="round"/></svg>
-    <svg class="burung burung-4" width="24" height="10" viewBox="0 0 24 10" aria-hidden="true"><path d="M0 5Q6 0 12 5Q18 0 24 5" fill="none" stroke="#2C2820" stroke-width="1.4" stroke-linecap="round"/></svg>
-    <svg class="burung burung-5" width="16" height="7" viewBox="0 0 16 7" aria-hidden="true"><path d="M0 3.5Q4 0 8 3.5Q12 0 16 3.5" fill="none" stroke="#2C2820" stroke-width="1.2" stroke-linecap="round"/></svg>
-
+    <!-- tanah -->
     <div class="bukit bukit-jauh" aria-hidden="true"></div>
+    <span class="pohon pohon-1" aria-hidden="true"></span>
+    <span class="pohon pohon-2" aria-hidden="true"></span>
     <img class="rumah-adegan" src="aset/rumah-panggung.webp" alt="" aria-hidden="true">
     <div class="bukit bukit-tengah" aria-hidden="true"></div>
+    <span class="pohon pohon-3" aria-hidden="true"></span>
+    <span class="pohon pohon-4" aria-hidden="true"></span>
     <div class="bukit bukit-dekat" aria-hidden="true"></div>
+    <span class="semak semak-1" aria-hidden="true"></span>
+    <span class="semak semak-2" aria-hidden="true"></span>
+    <span class="semak semak-3" aria-hidden="true"></span>
 
-    <img class="bina-sampul" src="aset/bina-badan.webp" alt="Bina melambai menyambutmu di depan rumah panggungnya">
-
-    <div class="sampul-konten">
-      <h1 class="judul-game">Rumahku, Bagian dan Fungsinya</h1>
-      <p class="sub-game">Pendidikan Pancasila · Fase A · Kelas 1 SD</p>
-      <button class="tombol-mulai" data-ke="menu">MULAI</button>
+    <!-- tokoh -->
+    <div class="bina-wadah">
+      <span class="bina-bayang" aria-hidden="true"></span>
+      <img class="bina-sampul" src="aset/bina-badan.webp" alt="Bina melambai menyambutmu di depan rumah panggungnya">
     </div>
 
-    <div class="sampul-bawah">
-      <div class="logo-deret">
-        <img src="aset/logo-tutwuri.webp" alt="Logo Tut Wuri Handayani, Kementerian Pendidikan">
-        <img src="aset/logo-pgri.webp" alt="Logo Persatuan Guru Republik Indonesia">
+    <!-- kolom antarmuka: teks di atas, aksi di bawah -->
+    <div class="sampul-kolom">
+      <div class="sampul-teks">
+        <p class="sampul-label">Pendidikan Pancasila · Fase A · Kelas 1 SD</p>
+        <h1 class="judul-game">
+          <span class="judul-utama">Rumahku,</span>
+          <span class="judul-lanjut">Bagian dan Fungsinya</span>
+        </h1>
+      </div>
+
+      <div class="sampul-aksi">
+        <button class="tombol-mulai" data-ke="menu">
+          Mulai
+          <svg class="panah" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="logo-deret-sampul">
+          <img src="aset/logo-tutwuri.webp" alt="Logo Tut Wuri Handayani, Kementerian Pendidikan">
+          <img src="aset/logo-pgri.webp" alt="Logo Persatuan Guru Republik Indonesia">
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -82,13 +106,13 @@
   <div class="kepala"><h2>Menu</h2><span class="arahan">Pilih bagian yang mau kamu buka.</span></div>
   <div class="menu-bingkai">
     <div class="menu-daftar">
-      <button class="menu-btn" style="--aksen:var(--kuning)" data-ke="petunjuk"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-list"></use></svg></span>Petunjuk Penggunaan</button>
-      <button class="menu-btn" style="--aksen:var(--kayu)" data-ke="tujuan"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-target"></use></svg></span>Capaian dan Tujuan</button>
-      <button class="menu-btn" style="--aksen:var(--hijau)" data-ke="materi"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-home"></use></svg></span>Materi</button>
-      <button class="menu-btn" style="--aksen:var(--jingga)" data-ke="rangkuman"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-note"></use></svg></span>Rangkuman</button>
-      <button class="menu-btn" style="--aksen:var(--merah)" data-ke="evaluasi"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-pencil"></use></svg></span>Evaluasi</button>
-      <button class="menu-btn" style="--aksen:var(--biru)" data-ke="pustaka"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-book"></use></svg></span>Daftar Pustaka</button>
-      <button class="menu-btn" style="--aksen:var(--ungu)" data-ke="profil"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-person"></use></svg></span>Profil Pengembang</button>
+      <button class="menu-btn" style="--aksen:var(--kuning-tua)" data-ke="petunjuk"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-list"></use></svg></span>Petunjuk Penggunaan<svg class="tanda" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+      <button class="menu-btn" style="--aksen:var(--kayu)" data-ke="tujuan"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-target"></use></svg></span>Capaian dan Tujuan<svg class="tanda" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+      <button class="menu-btn" style="--aksen:var(--hijau)" data-ke="materi"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-home"></use></svg></span>Materi<svg class="tanda" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+      <button class="menu-btn" style="--aksen:var(--jingga)" data-ke="rangkuman"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-note"></use></svg></span>Rangkuman<svg class="tanda" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+      <button class="menu-btn" style="--aksen:var(--merah)" data-ke="evaluasi"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-pencil"></use></svg></span>Evaluasi<svg class="tanda" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+      <button class="menu-btn" style="--aksen:var(--biru)" data-ke="pustaka"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-book"></use></svg></span>Daftar Pustaka<svg class="tanda" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+      <button class="menu-btn" style="--aksen:var(--ungu)" data-ke="profil"><span class="lambang"><svg class="ic" aria-hidden="true"><use href="#i-person"></use></svg></span>Profil Pengembang<svg class="tanda" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></button>
     </div>
     <div class="menu-gambar"><img src="aset/sampul.webp" alt="Bina di depan rumah panggungnya"></div>
   </div>
