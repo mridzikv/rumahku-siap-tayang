@@ -79,7 +79,6 @@ var sudahRumah = {}, jumlahRumah = 0;
 var tugasTerpilih = null, jumlahTugas = 0;
 var jagaBenar = 0, jagaSelesai = false;
 var soalKe = 0, skor = 0, soalTerkunci = false, evaluasiMulai = false;
-var suara = true;
 
 var $  = function(s){ return document.querySelector(s); };
 var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
@@ -134,28 +133,6 @@ function ulangiGerak(el, nama, durasi){
   if(ket) ket.textContent = KETERANGAN_ASET;
 })();
 
-var punyaTTS = ("speechSynthesis" in window);
-function ucap(teks){
-  if(!suara || !punyaTTS) return;
-  try{
-    window.speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(teks);
-    u.lang = "id-ID"; u.rate = 0.92; u.pitch = 1.05;
-    var d = window.speechSynthesis.getVoices() || [];
-    for(var i=0;i<d.length;i++){
-      if(d[i].lang && d[i].lang.toLowerCase().indexOf("id") === 0){ u.voice = d[i]; break; }
-    }
-    window.speechSynthesis.speak(u);
-  }catch(e){}
-}
-$("#tblSuara").addEventListener("click", function(){
-  suara = !suara;
-  this.querySelector("use").setAttribute("href", suara ? "#i-vol-on" : "#i-vol-off");
-  this.setAttribute("aria-pressed", String(suara));
-  this.title = suara ? "Suara nyala" : "Suara mati";
-  if(!suara && punyaTTS) window.speechSynthesis.cancel();
-});
-
 $$(".zona").forEach(function(z){
   z.addEventListener("click", function(){
     var k = z.getAttribute("data-ruang");
@@ -168,7 +145,7 @@ $$(".zona").forEach(function(z){
     if(ik && namaIkon){ ik.src = A + namaIkon + ".webp"; ik.hidden = false; ulangiGerak(ik, "buka-ruang", "320ms"); }
     $("#hitungRuang").textContent = jumlahRuang + " dari " + JUM_RUANG;
     if(jumlahRuang === JUM_RUANG) rayakan($("#hitungRuang"), 16);
-    ucap(RUANG[k].t); perbaruiNav();
+    perbaruiNav();
   });
 });
 
@@ -184,7 +161,6 @@ $$(".zona").forEach(function(z){
       if(!sudahRumah[r.f]){ sudahRumah[r.f] = true; jumlahRumah++; }
       $("#rumahJudul").textContent = r.n;
       var p = $("#rumahTeks"); p.textContent = r.t; p.classList.remove("kosong");
-      ucap(r.t);
       if(jumlahRumah === RUMAH.length){ $("#pesanKeberagaman").hidden = false; rayakan($("#pesanKeberagaman"), 16); }
       perbaruiNav();
     });
@@ -223,12 +199,10 @@ $$(".zona").forEach(function(z){
       $$("#barisOrang .orang").forEach(function(x){ x.classList.remove("siap"); });
       var tag = document.createElement("b"); tag.textContent = t.n;
       b.querySelector(".tugasnya").appendChild(tag);
-      ucap(o.n + " " + t.n.toLowerCase() + ".");
       if(jumlahTugas === TUGAS.length){
         $("#pesanGotong").textContent = "Semua pekerjaan sudah dibagi. Pekerjaan rumah jadi ringan kalau dikerjakan bersama-sama.";
         $("#pesanGotong").classList.add("hijau");
         rayakan($("#pesanGotong"), 16);
-        ucap("Pekerjaan rumah jadi ringan kalau dikerjakan bersama sama.");
       }else{
         $("#pesanGotong").innerHTML = "Masih ada <b>"+(TUGAS.length - jumlahTugas)+"</b> pekerjaan yang belum dibagi.";
       }
@@ -249,13 +223,11 @@ $$(".zona").forEach(function(z){
       if(b.classList.contains("benar")) return;
       if(j.ok){
         b.classList.add("benar"); jagaBenar++;
-        ucap("Benar. " + j.n + ".");
         if(jagaBenar === target){
           jagaSelesai = true;
           $("#pesanJaga").textContent = "Bagus sekali. Menjaga rumah berarti menjaga lingkungan tempat tinggal kita.";
           $("#pesanJaga").classList.add("hijau");
           rayakan($("#pesanJaga"), 16);
-          ucap("Menjaga rumah berarti menjaga lingkungan tempat tinggal kita.");
         }else{
           $("#pesanJaga").textContent = "Bagus. Masih ada " + (target - jagaBenar) + " lagi.";
         }
@@ -263,7 +235,6 @@ $$(".zona").forEach(function(z){
         b.classList.add("salah");
         setTimeout(function(){ b.classList.remove("salah"); }, 900);
         $("#pesanJaga").textContent = "Perbuatan itu merusak rumah dan lingkungan. Coba pilih yang lain.";
-        ucap("Itu bukan perbuatan yang menjaga rumah.");
       }
       perbaruiNav();
     });
@@ -289,12 +260,10 @@ function gambarSoal(){
         b.classList.add("benar"); skor++;
         rayakan(b, 14);
         $("#pesanSoal").textContent = "Betul!"; $("#pesanSoal").classList.add("hijau");
-        ucap("Betul.");
       }else{
         b.classList.add("salah");
         $$("#kisiJawab .kartu")[s.b].classList.add("benar");
         $("#pesanSoal").textContent = "Jawaban yang tepat adalah " + s.p[s.b] + ".";
-        ucap("Jawaban yang tepat adalah " + s.p[s.b]);
       }
       $("#pesanSoal").hidden = false;
       $$("#kisiJawab .kartu").forEach(function(x){
@@ -307,7 +276,6 @@ function gambarSoal(){
     });
     w.appendChild(b);
   });
-  ucap(s.q);
 }
 function mulaiEvaluasi(){
   soalKe = 0; skor = 0; evaluasiMulai = true; gambarSoal();
@@ -325,7 +293,6 @@ function selesaikan(){
     var jum = (skor === SOAL.length) ? 30 : 18;
     setTimeout(function(){ rayakan($("#skorAkhir"), jum); }, 180);
   }
-  ucap(pesan);
 }
 $("#tblUlang").addEventListener("click", function(){ keLayar("evaluasi"); });
 
@@ -387,7 +354,6 @@ function perbaruiNav(){
 }
 
 function keLayar(n, s){
-  if(punyaTTS) window.speechSynthesis.cancel();
   layar = n;
   if(s !== undefined) sub = s;
   $$("section[data-layar]").forEach(function(x){

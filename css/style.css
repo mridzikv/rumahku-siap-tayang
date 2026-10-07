@@ -633,6 +633,15 @@ footer .kanan { margin-left: auto; display: flex; gap: 8px; }
   background: var(--biru-muda); color: var(--biru);
 }
 .petunjuk-ikon p { margin: 0; color: var(--tinta-lembut); font-size: clamp(15px, 1.9vw, 17px); }
+.petunjuk-ikon .titik-contoh { background: var(--kertas); }
+.petunjuk-ikon .titik-contoh::after {
+  content: "";
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  background: var(--kuning);
+  border: 2px solid #FFF;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .45);
+}
 
 .rujukan { font-size: clamp(15px, 1.9vw, 17px); line-height: 1.6; margin: 0 0 12px; padding-left: 28px; text-indent: -28px; color: var(--tinta-lembut); }
 .rujukan:last-child { margin-bottom: 0; }
@@ -649,13 +658,16 @@ footer .kanan { margin-left: auto; display: flex; gap: 8px; }
   border: 2px solid var(--garis);
   padding: 8px;
 }
-.rumah-dalam { position: relative; line-height: 0; width: fit-content; max-width: 100%; margin: 0 auto; }
-.rumah-dalam img {
-  max-height: min(calc(100svh - 430px), 540px);
-  min-height: 240px;
-  width: auto;
-  max-width: 100%;
+/* Gambar rumah 1200x707. Lebarnya dibatasi tiga hal sekaligus:
+   lebar wadah, batas atas 820px, dan tinggi sisa layar dikali
+   rasio gambar. Tidak pernah ada gulir ke samping. */
+.rumah-dalam {
+  position: relative;
+  line-height: 0;
+  margin: 0 auto;
+  width: min(100%, 820px, max(300px, calc((100svh - 390px) * 1.7)));
 }
+.rumah-dalam img { width: 100%; height: auto; }
 
 .zona {
   position: absolute;
@@ -669,9 +681,29 @@ footer .kanan { margin-left: auto; display: flex; gap: 8px; }
   padding: 0;
   transition: background var(--d-mikro), border-color var(--d-mikro);
 }
-.zona:hover, .zona:focus-visible { background: rgba(218, 139, 24, .28); border-color: var(--kuning); outline: none; }
-.zona.sudah { border-color: rgba(11, 115, 80, .55); }
-.zona.terpilih { background: rgba(218, 139, 24, .38); border-color: var(--kuning); }
+/* Titik penanda: menandai 8 bidang yang bisa diketuk tanpa
+   menutupi ilustrasi dengan kotak putus-putus. Hilang begitu
+   ruangannya sudah dibuka. */
+.zona::before {
+  content: "";
+  position: absolute;
+  right: 5px; top: 5px;
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  background: var(--kuning);
+  border: 2px solid #FFF;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .45);
+  animation: denyut-zona 1.9s ease-in-out infinite;
+}
+.zona.sudah::before { display: none; }
+.zona:hover, .zona:focus-visible {
+  background: rgba(218, 139, 24, .34);
+  border-color: var(--kuning);
+  border-style: solid;
+  outline: none;
+}
+.zona.sudah { border-style: solid; border-color: var(--hijau); background: transparent; }
+.zona.terpilih { background: rgba(218, 139, 24, .38); border-color: var(--kuning); border-style: solid; }
 .zona .centang {
   position: absolute;
   right: 4px; top: 4px;
@@ -682,15 +714,6 @@ footer .kanan { margin-left: auto; display: flex; gap: 8px; }
   transition: opacity var(--d-mikro), transform var(--d-sedang);
 }
 .zona.sudah .centang { opacity: 1; transform: scale(1); }
-
-.geser-hint {
-  display: none;
-  font-family: var(--ff-mono);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--tinta-lembut);
-  margin: 8px 0 0;
-}
 
 /* ==========================================================
    9. KARTU NARASI
@@ -954,6 +977,10 @@ footer .kanan { margin-left: auto; display: flex; gap: 8px; }
   40%, 80% { transform: translateX(7px); }
 }
 @keyframes denyut-siap { 0%, 100% { border-color: var(--kuning); } 50% { border-color: var(--garis); } }
+@keyframes denyut-zona {
+  0%, 100% { transform: scale(1); opacity: .95; }
+  50% { transform: scale(1.22); opacity: 1; }
+}
 @keyframes denyut { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 @keyframes mengapung { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
@@ -1003,13 +1030,20 @@ footer .kanan { margin-left: auto; display: flex; gap: 8px; }
   .lembar-kisi .lembar { margin-bottom: 18px; }
 }
 
-/* --- Rumah: di bawah 680px gulir samping supaya zona ketuk
-       tetap besar untuk jari anak kelas 1. --- */
-@media (max-width: 679px) {
-  .rumah-wadah { overflow-x: auto; justify-content: flex-start; -webkit-overflow-scrolling: touch; }
-  .rumah-dalam { min-width: 620px; margin: 0; }
-  .rumah-dalam img { max-height: none; width: 620px; max-width: none; }
-  .geser-hint { display: block; }
+/* --- Rumah di ponsel: kurangi bingkai supaya gambar dapat
+       lebar sebanyak mungkin, karena tinggi zona ketuk ikut
+       lebar gambar. --- */
+@media (max-width: 559px) {
+  main { padding-left: 12px; padding-right: 12px; }
+  /* Gambar dibuat penuh selebar layar: tiap piksel lebar yang
+     didapat menaikkan tinggi zona ketuk ~0.2px. */
+  .rumah-wadah {
+    padding: 0;
+    border-left: 0;
+    border-right: 0;
+    margin-left: -12px;
+    margin-right: -12px;
+  }
 }
 
 /* --- Adegan di layar lebar: dua kolom, teks rata kiri
