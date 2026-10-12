@@ -1,69 +1,64 @@
-Rumahku, Bagian dan Fungsinya
-Media pembelajaran interaktif - Pendidikan Pancasila Fase A, Kelas 1 SD
+RUMAHKU, BAGIAN DAN FUNGSINYA (versi game)
+Media pembelajaran Pendidikan Pancasila, Fase A, kelas 1 SD
 
-CARA MENAYANGKAN
-1. Buka netlify.com/drop atau pages.cloudflare.com
-2. Seret SELURUH folder ini (index.html beserta folder aset) ke sana
-3. Salin URL yang muncul. Itu tautan yang disetorkan ke panitia
-Jangan unggah ke Google Drive. Drive tidak melayani hosting HTML,
-berkasnya akan terunduh, bukan terbuka.
+ISI FOLDER
+  index.html      seluruh game dalam satu berkas
+  aset/           40 gambar WebP, total sekitar 950 KB
+  aset/suara/     suara Bina hasil rekaman (MP3) dan daftar.js
+  .nojekyll       wajib ikut kalau ditayangkan di GitHub Pages
 
-ISI
-  index.html          media, satu berkas, tanpa kerangka kerja
-  aset/*.webp         gambar yang dipakai (total 681 KB)
-  aset/*.png          cadangan tanpa kompresi berlebih
-  aset/olah-aset.py   skrip pemotong dan pengoreksi warna
+CARA MENAYANGKAN ULANG DI CLOUDFLARE
+1. Buka dashboard Cloudflare, masuk ke Worker yang sudah ada.
+2. Unggah ulang SELURUH isi folder ini (index.html, folder aset, .nojekyll).
+   index.html harus berada di akar, bukan di dalam subfolder.
+3. Buka tautannya di jendela penyamaran untuk memastikan versi baru yang tampil.
+Hapus folder aset yang lama sebelum mengunggah. Nama berkas gambar sudah berubah.
 
-KALAU GAMBAR RUMAH DIGANTI
-Koordinat delapan area ketuk ditulis dalam persen di index.html,
-pada baris berawalan <button class="zona". Angka --l --t --w --h
-diukur dari berkas rumah-potongan lama. Ganti gambarnya, ukur ulang
-angkanya, atau semua area ketuk akan meleset.
+SUARA BINA
+Bina bicara dengan dua cara:
+  1. Rekaman manusia, kalau kalimatnya ada di aset/suara/daftar.js.
+  2. Suara bawaan perangkat, untuk kalimat yang belum direkam.
+Saat ini daftar.js masih kosong, jadi semua kalimat memakai suara bawaan.
+Cara mengisinya:
+  - Buka studio-suara.html (paket terpisah: studio-suara-bina.zip) di laptop.
+  - Rekam kalimat-kalimatnya, lalu klik "Unduh paket suara".
+  - Ekstrak suara-bina.zip ke folder ini (yang berisi index.html), pilih timpa.
+  - Unggah ulang folder aset/suara ke Cloudflare.
+Panduan lengkap dan seluruh naskah ada di "Naskah Rekaman Suara Bina.docx".
+Rekaman tetap diputar walaupun index.html dibuka langsung dari flashdisk.
 
-MENGISI DATA PROFIL DAN PUSTAKA
-Buka index.html dengan Notepad atau editor teks. Cari blok bertanda
-"DATA PROFIL" di bagian atas <script>, sekitar baris 700. Ganti isi
-tanda kutip. Semua penanda [[...]] adalah tempat yang harus diisi.
+YANG MASIH HARUS DIISI
+Buka index.html dengan Notepad, cari tulisan "DATA YANG BOLEH DIUBAH GURU"
+di bagian atas <script>.
+  surel            alamat surel di halaman profil (kosong = baris disembunyikan)
+  PUSTAKA_TAMBAHAN rujukan tambahan, satu baris satu rujukan.
+                   Isi nama penulis naskah materi asli di sini.
+  KETERANGAN_ASET  asal ilustrasi. Isi setelah panitia menjawab soal
+                   ilustrasi hasil AI. Kosong = bagian disembunyikan.
 
-Nama, instansi, dan foto sudah terisi. Yang masih kosong:
+STRUKTUR GAME
+  Layar pembuka    Bina melambai dan tombol Mulai. Ketukan pertama ini
+                   juga yang membuka suara di peramban.
+  Beranda          judul, rumah dua tinta, tombol mulai, tautan untuk guru
+  Peta Misi        5 misi + Ujian Kunci, semua bisa dibuka tanpa urutan
+  Misi 1           Jelajah Rumah: ketuk 8 bagian rumah, lalu 5 tebakan
+  Misi 2           Rapikan Barang: seret 6 barang ke ruangannya
+  Misi 3           Rumah Teman: cocokkan cerita dengan 4 bentuk rumah
+  Misi 4           Kerja Sama: bagi 6 pekerjaan ke 4 anggota keluarga
+  Misi 5           Penjaga Rumah: pilah 6 perbuatan ke dua keranjang
+  Ujian Kunci      8 soal bergambar, membuka sertifikat bernama
+  Halaman guru     Petunjuk, Capaian dan Tujuan, Rangkuman, Daftar Pustaka,
+                   Profil Pengembang
 
-  surel       alamat surel yang mau ditampilkan
-  keterangan  keterangan tambahan, boleh dikosongkan
-
-PUSTAKA_TAMBAHAN berisi tiga baris rujukan. Rujukan pertama
-(Kepmen BSKAP 032/H/KR/2024) sudah terpasang dan tidak perlu diubah.
-Baris kedua disediakan untuk penulis naskah materi asli. Isi dengan
-nama penulisnya, jangan dikosongkan.
-
-KETERANGAN_ASET diisi setelah panitia menjawab pertanyaan soal
-ilustrasi hasil AI. Jangan dibiarkan kosong saat dikumpulkan.
-
-LOGO
-logo-tutwuri dan logo-pgri tampil di layar sampul dan di halaman
-Profil Pengembang. Keduanya lambang resmi, jangan diubah warnanya,
-diregangkan, atau ditempeli apa pun.
-
-YANG BELUM SELESAI
-- Narasi memakai Web Speech API. Suara id-ID tidak ada di semua
-  perangkat. Ganti dengan rekaman suara guru untuk hasil terbaik.
-- rumah-adat.webp bentuk atapnya terlalu melengkung, terbaca seperti
-  kelenteng. Kajang Lako aslinya rendah dan memanjang. Sebaiknya
-  digenerate ulang dengan foto acuan.
-- Tanyakan ke panitia apakah ilustrasi hasil AI diperbolehkan.
-
-DEPLOY DI GITHUB PAGES
-Berkas .nojekyll sudah disertakan. Jangan dihapus.
-1. Buat repo baru, publik. Nama repo jadi bagian URL.
-2. Unggah SELURUH isi folder ini ke akar repo, bukan ke dalam subfolder.
-   index.html harus berada di akar.
-3. Settings > Pages > Source: Deploy from a branch > main > / (root) > Save
-4. Tunggu 1 sampai 10 menit. URL muncul di halaman yang sama.
-   Bentuknya https://NAMA-AKUN.github.io/NAMA-REPO/
-5. Buka URL itu di jendela penyamaran untuk memastikan benar-benar publik.
-
-CATATAN PENTING
-- GitHub Pages membedakan huruf besar dan kecil. Di Windows ikon-Dapur.png
-  dan ikon-dapur.png dianggap sama, di server tidak. Jangan ubah nama berkas.
-- Repo harus tetap publik sampai 28 November. Kalau diubah jadi private,
-  tautan mati dan panitia tidak bisa membuka karyamu.
-- Siapkan cermin cadangan di Netlify Drop dengan isi yang sama persis.
+CATATAN TEKNIS
+- Setiap barang bisa diseret ATAU diketuk lalu diketuk tujuannya.
+  Cara kedua juga jalan dengan papan ketik (Tab lalu Enter).
+- Kemajuan murid tersimpan di peramban perangkat yang dipakai saja.
+  Hapus lewat Petunjuk > Hapus kemajuan.
+- Tulisan di gelembung Bina selalu sama persis dengan yang diucapkan.
+  Di perangkat tanpa suara, Bina tetap bicara lewat teks di gelembung.
+- Game menunggu Bina selesai bicara sebelum pindah soal atau membuka
+  jendela "misi selesai", jadi kalimat tidak terpotong.
+- Koordinat ruangan di gambar rumah ditulis dalam persen di bagian
+  ZONA dan DINDING. Kalau gambar rumah-potongan.webp diganti, angka itu
+  harus diukur ulang.
