@@ -67,7 +67,10 @@ p{margin:0}
 .pembuka .pb-mulai svg{width:1.1em;height:1.1em}
 .pb-bina{grid-area:bina;position:relative;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding-top:clamp(16px,4svh,48px);z-index:1}
 .pb-tokoh{position:relative;height:min(100%,880px);aspect-ratio:329/584}
-.pb-tokoh .lambai{height:100%;animation:melayang 3.6s ease-in-out infinite;transform-origin:50% 100%}
+.pb-tokoh .lambai{height:100%;transform-origin:50% 100%}
+/* Animasi Bina sedikit lebih lebar dari kotaknya: ujung jari dan rambut keluar di kiri-kanan.
+   Kotaknya tetap 329/584 supaya Bina terbang pas ke panel kiri saat Mulai diketuk. */
+.pb-tokoh .lambai img{left:-5.84%;width:111.68%}
 .pb-matahari{
   position:absolute;left:50%;top:-5%;width:138%;aspect-ratio:1;transform:translateX(-50%);
   background:var(--kuning);border:var(--garis) solid var(--tinta);border-radius:50%;box-shadow:10px 10px 0 var(--tinta);
@@ -86,7 +89,7 @@ p{margin:0}
 .pb-awan-1{width:clamp(120px,14vw,220px);top:4svh;left:58%;animation:awan 50s linear infinite}
 .pb-awan-2{width:clamp(90px,10vw,160px);top:15svh;left:96%;animation:awan 70s linear infinite}
 @keyframes awan{from{transform:translateX(0)}to{transform:translateX(-120vw)}}
-.pb-masuk .pb-tokoh .lambai{animation:pb-naik .7s cubic-bezier(.2,1.4,.4,1) both, melayang 3.6s ease-in-out .7s infinite}
+.pb-masuk .pb-tokoh .lambai{animation:pb-naik .7s cubic-bezier(.2,1.4,.4,1) both}
 .pb-masuk .pb-matahari{animation:pb-terbit .6s cubic-bezier(.2,1.3,.4,1) both}
 .pb-masuk .pb-sapa{animation:pb-pop .4s cubic-bezier(.2,1.6,.4,1) .55s both}
 .pb-masuk .pb-teks,.pb-masuk .pb-tombol{animation:pb-turun .5s ease-out .2s both}
@@ -98,6 +101,7 @@ p{margin:0}
 .pembuka.keluar > .pb-isi > :not(.pb-bina),.pembuka.keluar .pb-matahari,.pembuka.keluar .pb-sapa,.pembuka.keluar .pb-awan{opacity:0;transition:opacity .3s}
 .pembuka.keluar{background-color:transparent;background-image:none;transition:background-color .35s}
 .pembuka.geser{transform:translateY(-104%);transition:transform .45s cubic-bezier(.6,0,.4,1)}
+.pembuka.pudar{opacity:0;transition:opacity .2s}
 @media (max-aspect-ratio:4/5), (max-width:700px){
   .pb-isi{
     grid-template-columns:minmax(0,1fr);
@@ -604,8 +608,10 @@ p{margin:0}
         <div class="pb-matahari" aria-hidden="true"></div>
         <p class="pb-sapa" aria-hidden="true">Halo! Aku Bina.</p>
         <div class="lambai" id="lambaiPembuka" role="img" aria-label="Bina melambaikan tangan">
-          <img src="aset/bina-lambai-badan.webp" alt="">
-          <img class="lengan" src="aset/bina-lambai-lengan.webp" alt="">
+          <picture>
+            <source srcset="aset/bina-lambai-diam.webp" media="(prefers-reduced-motion: reduce)">
+            <img src="aset/bina-lambai-gerak.webp" alt="" fetchpriority="high">
+          </picture>
         </div>
       </div>
     </div>
@@ -1863,8 +1869,15 @@ function tutupPembuka(){
   requestAnimationFrame(function(){
     asal.style.transform = "translate(" + (rt.left - ra.left) + "px," + (rt.top - ra.top) + "px) scale(" + sx + "," + sy + ")";
   });
+  /* Pose animasi pembuka dan gambar Bina di panel tidak persis sama, jadi saat mendarat
+     keduanya silang-pudar sebentar, bukan berganti mendadak. */
   var sudah = false;
-  function akhir(){ if (sudah) return; sudah = true; selesaiPembuka(); }
+  function akhir(){
+    if (sudah) return; sudah = true;
+    binaLambai.style.visibility = "";
+    pembuka.classList.add("pudar");
+    setTimeout(selesaiPembuka, 200);
+  }
   asal.addEventListener("transitionend", akhir);
   setTimeout(akhir, 700);
 }

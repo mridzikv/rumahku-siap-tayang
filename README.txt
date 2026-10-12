@@ -3,8 +3,11 @@ Media pembelajaran Pendidikan Pancasila, Fase A, kelas 1 SD
 
 ISI FOLDER
   index.html      seluruh game dalam satu berkas
-  aset/           40 gambar WebP, total sekitar 950 KB
+  aset/           42 gambar WebP, total sekitar 1,8 MB
+                  (900 KB di antaranya animasi Bina di layar pembuka)
   aset/suara/     suara Bina hasil rekaman (MP3) dan daftar.js
+  alat/           skrip pengolah video Bina. Tidak dipakai saat game berjalan,
+                  tidak perlu ikut diunggah.
   .nojekyll       wajib ikut kalau ditayangkan di GitHub Pages
 
 CARA MENAYANGKAN ULANG DI CLOUDFLARE
@@ -27,6 +30,27 @@ Cara mengisinya:
 Panduan lengkap dan seluruh naskah ada di "Naskah Rekaman Suara Bina.docx".
 Rekaman tetap diputar walaupun index.html dibuka langsung dari flashdisk.
 
+ANIMASI BINA DI LAYAR PEMBUKA
+  aset/bina-lambai-gerak.webp  Bina melambai, 3,5 detik berulang, 12 gambar per detik
+  aset/bina-lambai-diam.webp   gambar diam, tampil kalau perangkat diatur
+                               "kurangi gerakan"
+Dibuat dari video Girl_waving_and_greeting_viewer (10 detik) dengan
+alat/olah-video-bina.py. Latar video yang hitam-putih dibuang, lalu dipakai
+potongan detik 1,3 sampai 4,8 karena ujung dan awalnya hampir sama, jadi
+sambungan loop tidak terlihat. Video aslinya tidak disimpan di folder ini.
+Cara membuat ulang ada di bagian atas skrip itu.
+Yang perlu diketahui:
+  - Di video, jepit rambut Bina ada di kiri. Di semua gambar Bina yang lain
+    jepitnya di kanan. Saat Mulai diketuk, Bina terbang ke panel kiri dan
+    berganti ke gambar biasa, jadi jepitnya pindah sisi. Perbaikannya harus
+    dari video: buat ulang dengan jepit di kanan.
+  - Video memotong ujung jari saat tangan melambai paling jauh, juga sisi
+    kanan rambut. Bagian yang terpotong itu dibulatkan oleh skrip, bukan
+    gambar asli. Kalau membuat video baru, sisakan ruang kosong di kiri-kanan.
+  - Gambar animasi sedikit lebih lebar dari kotak Bina (lihat
+    ".pb-tokoh .lambai img" di index.html). Kalau ukuran gambar berubah,
+    angka di situ ikut diubah.
+
 YANG MASIH HARUS DIISI
 Buka index.html dengan Notepad, cari tulisan "DATA YANG BOLEH DIUBAH GURU"
 di bagian atas <script>.
@@ -37,8 +61,8 @@ di bagian atas <script>.
                    ilustrasi hasil AI. Kosong = bagian disembunyikan.
 
 STRUKTUR GAME
-  Layar pembuka    Bina melambai dan tombol Mulai. Ketukan pertama ini
-                   juga yang membuka suara di peramban.
+  Layar pembuka    Bina melambai (animasi dari video) dan tombol Mulai.
+                   Ketukan pertama ini juga yang membuka suara di peramban.
   Beranda          judul, rumah dua tinta, tombol mulai, tautan untuk guru
   Peta Misi        5 misi + Ujian Kunci, semua bisa dibuka tanpa urutan
   Misi 1           Jelajah Rumah: ketuk 8 bagian rumah, lalu 5 tebakan
