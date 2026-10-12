@@ -70,7 +70,7 @@ p{margin:0}
 .pb-tokoh .lambai{height:100%;transform-origin:50% 100%}
 /* Animasi Bina sedikit lebih lebar dari kotaknya: ujung jari dan rambut keluar di kiri-kanan.
    Kotaknya tetap 329/584 supaya Bina terbang pas ke panel kiri saat Mulai diketuk. */
-.pb-tokoh .lambai img{left:-5.84%;width:111.68%}
+.pb-tokoh .lambai .gerak{left:-5.84%;width:111.68%}
 .pb-matahari{
   position:absolute;left:50%;top:-5%;width:138%;aspect-ratio:1;transform:translateX(-50%);
   background:var(--kuning);border:var(--garis) solid var(--tinta);border-radius:50%;box-shadow:10px 10px 0 var(--tinta);
@@ -610,7 +610,7 @@ p{margin:0}
         <div class="lambai" id="lambaiPembuka" role="img" aria-label="Bina melambaikan tangan">
           <picture>
             <source srcset="aset/bina-lambai-diam.webp" media="(prefers-reduced-motion: reduce)">
-            <img src="aset/bina-lambai-gerak.webp" alt="" fetchpriority="high">
+            <img class="gerak" src="aset/bina-lambai-gerak.webp" alt="" fetchpriority="high">
           </picture>
         </div>
       </div>
@@ -1840,6 +1840,16 @@ LAYAR.profil = function(){
 
 /* ---------- layar pembuka ---------- */
 var pembuka = $("#pembuka"), aplikasi = $("#aplikasi");
+/* Kalau animasi Bina gagal dimuat (berkas belum terunggah, atau diblokir hosting),
+   pakai gambar Bina biasa yang lengannya digerakkan CSS, supaya tidak tampil gambar rusak. */
+var binaGerak = $("#lambaiPembuka .gerak");
+function binaCadangan(){
+  $("#lambaiPembuka").innerHTML = '<img src="' + A + 'bina-lambai-badan.webp" alt=""><img class="lengan" src="' + A + 'bina-lambai-lengan.webp" alt="">';
+}
+if (binaGerak) {
+  if (binaGerak.complete && !binaGerak.naturalWidth) binaCadangan();
+  else binaGerak.addEventListener("error", binaCadangan);
+}
 function selesaiPembuka(){
   if (pembuka && pembuka.parentNode) pembuka.remove();
   aplikasi.removeAttribute("inert");

@@ -39,6 +39,10 @@ alat/olah-video-bina.py. Latar video yang hitam-putih dibuang, lalu dipakai
 potongan detik 1,3 sampai 4,8 karena ujung dan awalnya hampir sama, jadi
 sambungan loop tidak terlihat. Video aslinya tidak disimpan di folder ini.
 Cara membuat ulang ada di bagian atas skrip itu.
+Kalau berkas animasi gagal dimuat (belum terunggah, atau ditolak hosting),
+layar pembuka otomatis memakai gambar Bina biasa (bina-lambai-badan.webp dan
+bina-lambai-lengan.webp). Jadi kalau Bina di layar pembuka tampil diam dengan
+jepit di kanan, berarti animasinya tidak sampai ke peramban.
 Yang perlu diketahui:
   - Di video, jepit rambut Bina ada di kiri. Di semua gambar Bina yang lain
     jepitnya di kanan. Saat Mulai diketuk, Bina terbang ke panel kiri dan
